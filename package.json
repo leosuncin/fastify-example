@@ -1,0 +1,23 @@
+{
+  "name": "fastify-example",
+  "version": "1.0.0",
+  "description": "Example app with fastify",
+  "main": "src/app.js",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fastify"
+  ],
+  "author": "Jaime Leonardo Suncin Cruz <leosuncin@gmail.com>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "fastify": "^3.22.0"
+  },
+  "engines": {
+    "node": ">=14.13.0"
+  }
+}
