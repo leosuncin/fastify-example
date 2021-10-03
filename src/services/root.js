@@ -1,7 +1,5 @@
-export default function (fastify, options, next) {
+export default async function (fastify, options) {
   fastify.get('/', (request, reply) => ({
     hello: 'world',
   }));
-
-  next();
 }
