@@ -16,8 +16,10 @@
     "lint": "eslint .",
     "prepare": "husky install",
     "start": "fastify start -l info src/app.js",
-    "test": "ava",
-    "test:coverage": "c8 ava"
+    "start:e2e": "server-test 'fastify start src/app.js' http-get://localhost:3000 test:e2e",
+    "test": "ava test/**/*.test.js",
+    "test:coverage": "c8 ava test/**/*.test.js",
+    "test:e2e": "ava e2e/**/*.spec.js"
   },
   "keywords": [
     "fastify"
@@ -52,7 +54,9 @@
     "eslint-plugin-unicorn": "^36.0.0",
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2",
+    "pactum": "^3.0.20",
     "prettier": "^2.4.1",
-    "prettier-plugin-package": "^1.3.0"
+    "prettier-plugin-package": "^1.3.0",
+    "start-server-and-test": "^1.14.0"
   }
 }
