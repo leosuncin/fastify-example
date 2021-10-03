@@ -1,17 +1,15 @@
 import test from 'ava';
-import Fastify from 'fastify';
 
-import app from '../../src/app.js';
+import { buildApp } from '../../src/utils/test.js';
 
-const fastify = Fastify();
-fastify.register(app);
+const app = buildApp();
 
 test.afterEach(() => {
-  fastify.close();
+  app.close();
 });
 
 test('get "hello world" response', async (check) => {
-  const response = await fastify.inject({
+  const response = await app.inject({
     url: '/',
   });
 
