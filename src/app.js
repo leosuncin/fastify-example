@@ -1,26 +1,12 @@
+import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import process from 'node:process';
-import Fastify from 'fastify';
+import autoload from 'fastify-autoload';
 
-import rootRoute from './services/root.js';
+export default async function (fastify, options) {
+  const dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const fastify = Fastify({
-  logger: process.env.NODE_ENV !== 'test',
-});
-
-fastify.register(rootRoute);
-
-const modulePath = fileURLToPath(import.meta.url);
-const scriptPath = process.argv[1];
-
-// Check if this file is the main module
-if (modulePath === scriptPath) {
-  fastify.listen(process.env.PORT ?? 1337, (error) => {
-    if (error) {
-      fastify.log.error(error);
-      process.exit(1);
-    }
+  fastify.register(autoload, {
+    dir: path.join(dirname, 'services'),
+    options: { ...options },
   });
 }
-
-export default fastify;

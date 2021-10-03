@@ -6,7 +6,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node src/app.js",
+    "dev": "fastify start -w -l info -P src/app.js",
+    "start": "fastify start -l info src/app.js",
     "test": "ava"
   },
   "keywords": [
@@ -15,7 +16,9 @@
   "author": "Jaime Leonardo Suncin Cruz <leosuncin@gmail.com>",
   "license": "GPL-3.0",
   "dependencies": {
-    "fastify": "^3.22.0"
+    "fastify": "^3.22.0",
+    "fastify-autoload": "^3.9.0",
+    "fastify-cli": "^2.13.0"
   },
   "devDependencies": {
     "ava": "^3.15.0"

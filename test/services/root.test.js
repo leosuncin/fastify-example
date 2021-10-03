@@ -1,13 +1,17 @@
 import test from 'ava';
+import Fastify from 'fastify';
 
 import app from '../../src/app.js';
 
+const fastify = Fastify();
+fastify.register(app);
+
 test.afterEach(() => {
-  app.close();
+  fastify.close();
 });
 
 test('get "hello world" response', async (check) => {
-  const response = await app.inject({
+  const response = await fastify.inject({
     url: '/',
   });
 
