@@ -2,6 +2,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import autoload from 'fastify-autoload';
 
+/** @type {import('fastify').FastifyPluginAsync} */
 export default async function (fastify, options) {
   const dirname = path.dirname(fileURLToPath(import.meta.url));
 
