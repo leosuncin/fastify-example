@@ -1,0 +1,46 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "plugins": ["switch-case", "simple-import-sort"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:node/recommended",
+    "plugin:sonarjs/recommended",
+    "plugin:unicorn/recommended",
+    "plugin:array-func/all",
+    "plugin:eslint-comments/recommended",
+    "plugin:optimize-regex/recommended",
+    "plugin:promise/recommended",
+    "plugin:switch-case/recommended",
+    "plugin:security/recommended",
+    "plugin:import/recommended",
+    "prettier"
+  ],
+  "root": true,
+  "env": {
+    "es2020": true,
+    "node": true
+  },
+  "ignorePatterns": ["coverage/**"],
+  "rules": {
+    "node/no-missing-import": "off",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error"
+  },
+  "overrides": [
+    {
+      "files": ["test/**/*.test.js"],
+      "extends": ["plugin:ava/recommended"]
+    }
+  ],
+  "settings": {
+    "node": {
+      "allowModules": ["ava"]
+    }
+  }
+}
