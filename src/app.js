@@ -6,7 +6,7 @@ export default async function (fastify, options) {
   const dirname = path.dirname(fileURLToPath(import.meta.url));
 
   fastify.register(autoload, {
-    dir: path.join(dirname, 'services'),
+    dir: path.join(dirname, 'routes'),
     options: { ...options },
   });
 }
