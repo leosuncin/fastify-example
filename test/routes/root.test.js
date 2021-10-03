@@ -8,12 +8,12 @@ test.afterEach(() => {
   app.close();
 });
 
-test('get "hello world" response', async (check) => {
+test('get "hello world" response', async (t) => {
   const response = await app.inject({
     url: '/',
   });
 
-  check.assert(response.statusCode === 200);
-  check.regex(response.headers['content-type'], /application\/json/i);
-  check.snapshot(response.json(), "response's body should be JSON");
+  t.assert(response.statusCode === 200);
+  t.regex(response.headers['content-type'], /application\/json/i);
+  t.snapshot(response.json(), "response's body should be JSON");
 });
