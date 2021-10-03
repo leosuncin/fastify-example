@@ -16,7 +16,8 @@
     "lint": "eslint .",
     "prepare": "husky install",
     "start": "fastify start -l info src/app.js",
-    "test": "ava"
+    "test": "ava",
+    "test:coverage": "c8 ava"
   },
   "keywords": [
     "fastify"
@@ -32,6 +33,7 @@
     "@commitlint/cli": "^13.2.0",
     "@commitlint/config-conventional": "^13.2.0",
     "ava": "^3.15.0",
+    "c8": "^7.9.0",
     "devmoji": "^2.3.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
