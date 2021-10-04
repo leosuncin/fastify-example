@@ -1,10 +1,14 @@
 import Fastify from 'fastify';
 import plugin from 'fastify-plugin';
+// eslint-disable-next-line import/no-unresolved
+import { Memory } from 'lowdb';
 
 import App from '../app.js';
 
 export function config() {
-  return {};
+  return {
+    adapter: new Memory(),
+  };
 }
 
 export function buildApp() {
@@ -18,4 +22,14 @@ export function buildApp() {
   app.register(plugin(App), config());
 
   return app;
+}
+
+export async function buildWith(Plugin) {
+  const instance = Fastify();
+
+  instance.register(Plugin, config());
+
+  await instance.ready();
+
+  return instance;
 }

@@ -1,4 +1,6 @@
 import autoload from 'fastify-autoload';
+// eslint-disable-next-line import/no-unresolved
+import { JSONFile } from 'lowdb';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -13,7 +15,10 @@ export default async function (fastify, options) {
    */
   fastify.register(autoload, {
     dir: path.join(dirname, 'plugins'),
-    options: { ...options },
+    options: {
+      adapter: new JSONFile(path.join(dirname, '..', 'db.json')),
+      ...options,
+    },
   });
 
   /*
