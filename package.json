@@ -11,7 +11,7 @@
     "node": ">=14.13.0"
   },
   "scripts": {
-    "dev": "fastify start -w --ignore-watch=db.json -l info -P src/app.js",
+    "dev": "fastify start -w --ignore-watch='db.json e2e test .vscode' -l info -P src/app.js",
     "format": "prettier --write .",
     "lint": "eslint .",
     "prepare": "husky install",
@@ -19,7 +19,8 @@
     "start:e2e": "server-test 'fastify start src/app.js' http-get://localhost:3000 test:e2e",
     "test": "ava test/**/*.test.js",
     "test:coverage": "c8 ava test/**/*.test.js",
-    "test:e2e": "ava e2e/**/*.spec.js"
+    "test:e2e": "ava e2e/**/*.spec.js",
+    "test:watch": "npm t -- --watch"
   },
   "keywords": [
     "fastify"
@@ -62,7 +63,8 @@
   },
   "ava": {
     "ignoredByWatcher": [
-      "db.json"
+      "db.json",
+      ".vscode"
     ]
   }
 }
