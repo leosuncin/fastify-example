@@ -14,6 +14,20 @@ export const autoPrefix = '/todos';
  * @type {import('fastify').FastifyPluginAsync}
  */
 export default async function (fastify) {
+  fastify.addHook('preHandler', async (request) => {
+    const { id } = request.params;
+
+    if (id) {
+      const { [id]: todo } = fastify.db.data.todos;
+
+      if (!todo) {
+        fastify.assert.ok(todo, 404, `Not found any todo with id: ${id}`);
+      }
+
+      request.todo = todo;
+    }
+  });
+
   fastify.post('/', { schema: createOne }, async (request, reply) => {
     const { text } = request.body;
     const todo = {
@@ -33,26 +47,13 @@ export default async function (fastify) {
     Object.values(fastify.db.data.todos),
   );
 
-  fastify.get('/:id', { schema: getOne }, (request, reply) => {
-    const { id } = request.params;
-    const { [id]: todo } = fastify.db.data.todos;
+  fastify.get('/:id', { schema: getOne }, (request) => request.todo);
 
-    if (!todo) {
-      return reply.notFound(`Not found any todo with id: ${id}`);
-    }
-
-    return todo;
-  });
-
-  fastify.put('/:id', { schema: updateOne }, async (request, reply) => {
-    const { id } = request.params;
-    const { [id]: todo } = fastify.db.data.todos;
-
-    if (!todo) {
-      return reply.notFound(`Not found any todo with id: ${id}`);
-    }
-
-    const { text = todo.text, done = todo.done } = request.body;
+  fastify.put('/:id', { schema: updateOne }, async (request) => {
+    const {
+      todo,
+      body: { text = todo.text, done = todo.done },
+    } = request;
 
     if (text !== todo.text || done !== todo.done) {
       Object.assign(todo, { text, done });
@@ -65,14 +66,7 @@ export default async function (fastify) {
   });
 
   fastify.delete('/:id', { schema: removeOne }, async (request, reply) => {
-    const { id } = request.params;
-    const { [id]: todo } = fastify.db.data.todos;
-
-    if (!todo) {
-      return reply.notFound(`Not found any todo with id: ${id}`);
-    }
-
-    delete fastify.db.data.todos[todo.id];
+    delete fastify.db.data.todos[request.todo.id];
     await fastify.db.write();
 
     reply.code(204).send();
